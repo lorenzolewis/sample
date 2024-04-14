@@ -4,7 +4,6 @@ import db from "@astrojs/db";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lorenzolewis.github.io',
-  base: 'sample',
+  site: 'https://lorenzolewis.click',
   integrations: [db()]
 });
