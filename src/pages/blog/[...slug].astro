@@ -1,0 +1,23 @@
+---
+import { db, BlogPost } from "astro:db";
+import Page from "../../layouts/Page.astro";
+
+export async function getStaticPaths() {
+  const blogPosts = await db.select().from(BlogPost);
+  return [
+    { params: { slug: undefined } },
+    ...blogPosts.map((post) => ({
+      params: { slug: post.slug },
+      props: { content: post.content },
+    })),
+  ];
+}
+
+const { content } = Astro.props;
+---
+
+<Page>
+  <h1>Blog</h1>
+  {!content && <p>Index of Blogs</p>}
+  {content && <div set:html={content} />}</Page
+>

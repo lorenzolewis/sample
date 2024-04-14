@@ -1,0 +1,10 @@
+---
+import { NavigationItems } from "astro:db";
+
+interface Props {
+  item: typeof NavigationItems.$inferSelect;
+}
+const { item } = Astro.props;
+---
+
+<li><a href={item.href}>{item.label}</a></li>

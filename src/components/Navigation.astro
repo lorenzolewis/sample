@@ -1,24 +1,12 @@
 ---
-import { eq } from "astro:db";
-import { db, Navigation as NavigationDb, Translations } from "astro:db";
+import { db, NavigationItems } from "astro:db";
+import NavigationItem from "./NavigationItem.astro";
 
-const localeId = 1;
-
-const navigationItems = await db
-  .select()
-  .from(NavigationDb)
-  .innerJoin(Translations, eq(NavigationDb.i18nKeyId, Translations.i18nKeyId))
-  .where(eq(Translations.localeId, localeId));
+const navigationItems = await db.select().from(NavigationItems);
 ---
 
 <nav>
   <ul>
-    {
-      navigationItems.map(async (item) => (
-        <li>
-          <a href={item.Navigation.href}>{item.Translations.value}</a>
-        </li>
-      ))
-    }
+    {navigationItems.map((item) => <NavigationItem {item} />)}
   </ul>
 </nav>
